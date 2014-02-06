@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hook PUBLIC "-//Liferay//DTD Hook 6.2.0//EN" "http://www.liferay.com/dtd/liferay-hook_6_2_0.dtd">
+
+<hook>
+	<portal-properties>portal.properties</portal-properties>
+
+	<servlet-filter>
+		<servlet-filter-name>ACS Filter</servlet-filter-name>
+		<servlet-filter-impl>com.microsoftopentechnologies.acs.federation.ACSFederationAuthFilter</servlet-filter-impl>
+        <init-param>
+            <param-name>PassiveRequestorEndpoint</param-name>
+            <param-value>https://marctest.accesscontrol.windows.net:443/v2/wsfederation</param-value>
+        </init-param>
+        <init-param>
+            <param-name>RelyingPartyRealm</param-name>
+            <param-value>http://liferay.localdomain:8080</param-value>
+        </init-param>
+        <init-param>
+            <param-name>SecretKey</param-name>
+            <param-value>vJnQnjjjamd+jFHw3d1Itw==</param-value>
+        </init-param>
+        <init-param>
+            <param-name>AllowHTTP</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>LogoutReplyURLPath</param-name>
+            <param-value>/c/portal/logout</param-value>
+        </init-param>
+	</servlet-filter>
+	<servlet-filter-mapping>
+		<servlet-filter-name>ACS Filter</servlet-filter-name>
+		<before-filter>URL Rewrite Filter</before-filter>
+		<url-pattern>/c/portal/login</url-pattern>
+	</servlet-filter-mapping>
+ 	<servlet-filter-mapping>
+		<servlet-filter-name>ACS Filter</servlet-filter-name>
+		<before-filter>URL Rewrite Filter</before-filter>
+		<url-pattern>/c/portal/ssologout</url-pattern>
+	</servlet-filter-mapping>
+</hook>
